@@ -1,6 +1,6 @@
 # portfolio
 
-A minimal, terminal-inspired personal portfolio designed for a systems programmer. 
+A minimal, terminal-inspired personal portfolio 
 
 ## Stack
 - React + Vite
@@ -16,6 +16,5 @@ npm run dev
 ```
 
 ## Hidden Features
-- Press \`\` ` \`\` to open a functional simulated terminal overlay.
+- Press ` to open a functional simulated terminal overlay.
 - Navigate the interactive virtual file system using standard Unix commands (`ls`, `cd`, `cat`, `pwd`).
-- Includes a full mock boot sequence and hidden easter eggs.
