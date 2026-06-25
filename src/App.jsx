@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -10,9 +10,66 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import TerminalOverlay from './components/TerminalOverlay';
 
+const MouseGlow = () => {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    let ticking = false;
+    const handleMouseMove = (e) => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setMousePos({ x: e.clientX, y: e.clientY });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  return (
+    <div 
+      className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-300"
+      style={{
+        background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(203, 166, 247, 0.04), transparent 80%)`
+      }}
+    />
+  );
+};
+
+const ScrollReveal = ({ children }) => {
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div 
+      ref={ref} 
+      className={`transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[opacity,transform,filter] ${
+        isVisible ? "opacity-100 translate-y-0 blur-none" : "opacity-0 translate-y-8 blur-[4px]"
+      }`}
+    >
+      {children}
+    </div>
+  );
+};
+
 function App() {
   const [terminalOpen, setTerminalOpen] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -25,37 +82,18 @@ function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  const fadeUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-  };
-
   return (
     <div className="min-h-screen bg-ctp-base text-ctp-text flex justify-center w-full relative overflow-hidden">
-      {/* Dynamic Mouse Glow */}
-      <div 
-        className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-300"
-        style={{
-          background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(203, 166, 247, 0.04), transparent 80%)`
-        }}
-      />
+      <MouseGlow />
 
       <main className="w-full max-w-[720px] px-6 md:px-8 py-16 md:py-24 flex flex-col gap-20 relative z-10">
         <Hero />
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}><About /></motion.div>
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}><Education /></motion.div>
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}><Skills /></motion.div>
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}><Projects /></motion.div>
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}><Currently /></motion.div>
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}><Contact /></motion.div>
+        <ScrollReveal><About /></ScrollReveal>
+        <ScrollReveal><Education /></ScrollReveal>
+        <ScrollReveal><Skills /></ScrollReveal>
+        <ScrollReveal><Projects /></ScrollReveal>
+        <ScrollReveal><Currently /></ScrollReveal>
+        <ScrollReveal><Contact /></ScrollReveal>
         <Footer />
       </main>
 
