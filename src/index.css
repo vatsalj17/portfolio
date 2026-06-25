@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ctp-base: #1e1e2e;
+  --color-ctp-mantle: #181825;
+  --color-ctp-crust: #11111b;
+  --color-ctp-surface0: #313244;
+  --color-ctp-surface1: #45475a;
+  --color-ctp-overlay1: #7f849c;
+  --color-ctp-text: #cdd6f4;
+  --color-ctp-subtext0: #a6adc8;
+  --color-accent-primary: #cba6f7;
+  --color-accent-secondary: #89b4fa;
+  --color-accent-green: #a6e3a1;
+  --color-accent-yellow: #f9e2af;
+  --color-accent-red: #f38ba8;
+  --color-accent-teal: #94e2d5;
+
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'IBM Plex Sans', sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-ctp-base);
+    color: var(--color-ctp-text);
+  }
+}
+
+@utility max-w-prose-custom {
+  max-width: 68ch;
+}
+
+* {
+  transition-duration: 150ms;
+  transition-timing-function: ease;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  display: inline-block;
+  width: 0.6ch;
+  height: 1.1em;
+  background: var(--color-accent-primary);
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+}
+
+.terminal {
+  background: var(--color-ctp-mantle);
+  border: 1px solid var(--color-ctp-surface0);
+  border-left: 3px solid var(--color-accent-primary);
+  padding: 1rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--color-ctp-text);
+  overflow-x: auto;
+}
+
+.link-custom {
+  color: var(--color-accent-secondary);
+  text-decoration: none;
+  position: relative;
+}
+
+.link-custom:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent-secondary);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.link-custom:visited {
+  color: var(--color-ctp-overlay1);
+}
+
+.divider {
+  color: var(--color-ctp-surface0);
+  font-family: var(--font-mono);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ctp-base);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ctp-surface0);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ctp-surface1);
+}
