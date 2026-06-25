@@ -1,16 +1,21 @@
-# React + Vite
+# portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A minimal, terminal-inspired personal portfolio designed for a systems programmer. 
 
-Currently, two official plugins are available:
+## Stack
+- React + Vite
+- Tailwind CSS v4
+- Framer Motion
+- Theme: Catppuccin Mocha
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Local Development
 
-## React Compiler
+```bash
+npm install
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Hidden Features
+- Press \`\` ` \`\` to open a functional simulated terminal overlay.
+- Navigate the interactive virtual file system using standard Unix commands (`ls`, `cd`, `cat`, `pwd`).
+- Includes a full mock boot sequence and hidden easter eggs.
