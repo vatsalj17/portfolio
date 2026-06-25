@@ -5,7 +5,6 @@ import About from './components/About';
 import Education from './components/Education';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
-import Currently from './components/Currently';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import TerminalOverlay from './components/TerminalOverlay';
@@ -92,7 +91,6 @@ function App() {
         <ScrollReveal><Education /></ScrollReveal>
         <ScrollReveal><Skills /></ScrollReveal>
         <ScrollReveal><Projects /></ScrollReveal>
-        <ScrollReveal><Currently /></ScrollReveal>
         <ScrollReveal><Contact /></ScrollReveal>
         <Footer />
       </main>
